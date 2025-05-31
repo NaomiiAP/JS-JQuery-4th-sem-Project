@@ -1,0 +1,601 @@
+@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
+
+:root {
+  --terminal-bg: #0c0c0c;
+  --terminal-text: #00ff00;
+  --terminal-text-dim: #00aa00;
+  --terminal-header: #1a1a1a;
+  --terminal-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+  --error-color: #ff3333;
+  --success-color: #00ff00;
+  --warning-color: #ffcc00;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "VT323", monospace;
+  background-color: #000;
+  color: var(--terminal-text);
+  line-height: 1.5;
+  overflow: hidden;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 900px;
+  height: 90vh;
+  padding: 20px;
+}
+
+/* Login Screen Styles */
+.login-screen {
+  width: 100%;
+  height: 100%;
+  background-color: var(--terminal-bg);
+  border-radius: 8px;
+  box-shadow: var(--terminal-shadow);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-screen::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.15),
+    rgba(0, 0, 0, 0.15) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  z-index: 10;
+}
+
+.login-container {
+  width: 80%;
+  max-width: 500px;
+  padding: 30px;
+  border: 2px solid var(--terminal-text);
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 20;
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.login-header h1 {
+  font-size: 32px;
+  margin-bottom: 10px;
+  text-shadow: 0 0 10px var(--terminal-text);
+}
+
+.blink {
+  animation: blink-text 1s step-end infinite;
+  color: var(--error-color);
+  font-size: 18px;
+}
+
+@keyframes blink-text {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 18px;
+}
+
+.form-group input {
+  width: 100%;
+  background-color: #111;
+  border: 1px solid var(--terminal-text-dim);
+  color: var(--terminal-text);
+  padding: 10px;
+  font-family: "VT323", monospace;
+  font-size: 18px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.form-actions button {
+  background-color: var(--terminal-text-dim);
+  border: none;
+  color: #000;
+  padding: 10px 20px;
+  font-family: "VT323", monospace;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.form-actions button:hover {
+  background-color: var(--terminal-text);
+  box-shadow: 0 0 10px var(--terminal-text);
+}
+
+#login-message {
+  margin-top: 20px;
+  text-align: center;
+  min-height: 24px;
+}
+
+/* Terminal Styles */
+.terminal {
+  width: 100%;
+  height: 100%;
+  background-color: var(--terminal-bg);
+  border-radius: 8px;
+  box-shadow: var(--terminal-shadow);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.terminal::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.15),
+    rgba(0, 0, 0, 0.15) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  z-index: 10;
+}
+
+.terminal::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.3) 100%);
+  pointer-events: none;
+  z-index: 11;
+}
+
+.terminal-header {
+  background-color: var(--terminal-header);
+  padding: 8px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #333;
+}
+
+.terminal-title {
+  font-size: 16px;
+  color: var(--terminal-text-dim);
+}
+
+.terminal-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.control {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.minimize {
+  background-color: #ffbd2e;
+}
+
+.maximize {
+  background-color: #28c940;
+}
+
+.close {
+  background-color: #ff5f56;
+}
+
+.terminal-content {
+  flex: 1;
+  padding: 15px;
+  overflow-y: auto;
+  font-size: 18px;
+  position: relative;
+}
+
+.terminal-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.terminal-content::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+.terminal-content::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 4px;
+}
+
+.terminal-input-line {
+  display: flex;
+  padding: 5px 15px 15px;
+  align-items: center;
+  background-color: var(--terminal-bg);
+}
+
+.prompt {
+  color: var(--terminal-text);
+  margin-right: 8px;
+  white-space: nowrap;
+}
+
+#terminal-input {
+  background: transparent;
+  border: none;
+  color: var(--terminal-text);
+  font-family: "VT323", monospace;
+  font-size: 18px;
+  flex: 1;
+  caret-color: transparent;
+  outline: none;
+}
+
+.cursor {
+  width: 10px;
+  height: 20px;
+  background-color: var(--terminal-text);
+  display: inline-block;
+  animation: blink 1s step-end infinite;
+  position: absolute;
+  margin-left: -10px;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.command {
+  color: var(--warning-color);
+  font-weight: bold;
+}
+
+.error {
+  color: var(--error-color);
+}
+
+.success {
+  color: var(--success-color);
+}
+
+.warning {
+  color: var(--warning-color);
+}
+
+.boot-sequence p {
+  margin-bottom: 5px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.welcome-message {
+  font-size: 22px;
+  margin: 15px 0;
+  color: var(--terminal-text);
+  text-shadow: 0 0 5px var(--terminal-text);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes flicker {
+  0% {
+    opacity: 0.9;
+  }
+  5% {
+    opacity: 0.8;
+  }
+  10% {
+    opacity: 0.9;
+  }
+  15% {
+    opacity: 1;
+  }
+  20% {
+    opacity: 0.9;
+  }
+  25% {
+    opacity: 1;
+  }
+  30% {
+    opacity: 0.9;
+  }
+  35% {
+    opacity: 0.8;
+  }
+  40% {
+    opacity: 0.9;
+  }
+  45% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  55% {
+    opacity: 0.9;
+  }
+  60% {
+    opacity: 1;
+  }
+  65% {
+    opacity: 0.9;
+  }
+  70% {
+    opacity: 0.8;
+  }
+  75% {
+    opacity: 0.9;
+  }
+  80% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.9;
+  }
+  95% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0.9;
+  }
+}
+
+.terminal {
+  animation: flicker 5s infinite;
+}
+
+.progress-bar {
+  height: 20px;
+  background-color: #111;
+  border: 1px solid var(--terminal-text-dim);
+  margin: 10px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: var(--terminal-text);
+  width: 0%;
+  transition: width 0.1s linear;
+}
+
+.password-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.password-cell {
+  background-color: #111;
+  border: 1px solid var(--terminal-text-dim);
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.password-cell:hover {
+  background-color: #222;
+}
+
+.password-cell.selected {
+  background-color: var(--terminal-text-dim);
+  color: #000;
+}
+
+.logic-bomb {
+  border: 1px solid var(--terminal-text-dim);
+  padding: 15px;
+  margin: 15px 0;
+  position: relative;
+}
+
+.timer {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  color: var(--error-color);
+}
+
+.sql-injection {
+  border: 1px solid var(--terminal-text-dim);
+  padding: 15px;
+  margin: 15px 0;
+}
+
+.login-form {
+  margin: 10px 0;
+}
+
+.sql-injection .login-form input {
+  background-color: #111;
+  border: 1px solid var(--terminal-text-dim);
+  color: var(--terminal-text);
+  padding: 5px 10px;
+  margin: 5px 0;
+  width: 100%;
+  font-family: "VT323", monospace;
+  font-size: 16px;
+}
+
+.sql-injection .login-form button {
+  background-color: var(--terminal-text-dim);
+  border: none;
+  color: #000;
+  padding: 5px 15px;
+  margin-top: 10px;
+  cursor: pointer;
+  font-family: "VT323", monospace;
+  font-size: 16px;
+}
+
+/* Hack animation */
+@keyframes glitch {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-5px, 5px);
+  }
+  40% {
+    transform: translate(-5px, -5px);
+  }
+  60% {
+    transform: translate(5px, 5px);
+  }
+  80% {
+    transform: translate(5px, -5px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+.glitch {
+  animation: glitch 0.3s linear infinite;
+  color: var(--error-color);
+}
+
+.hack-progress {
+  width: 100%;
+  height: 20px;
+  background-color: #111;
+  border: 1px solid var(--terminal-text-dim);
+  margin-top: 20px;
+}
+
+.hack-progress-fill {
+  height: 100%;
+  background-color: var(--terminal-text);
+  width: 0%;
+  transition: width 0.1s linear;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+    height: 95vh;
+  }
+
+  .terminal-content {
+    font-size: 16px;
+  }
+
+  #terminal-input {
+    font-size: 16px;
+  }
+
+  .prompt {
+    font-size: 16px;
+  }
+
+  .login-container {
+    width: 90%;
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 5px;
+  }
+
+  .terminal-header {
+    padding: 5px 10px;
+  }
+
+  .terminal-content {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  #terminal-input {
+    font-size: 14px;
+  }
+
+  .prompt {
+    font-size: 14px;
+  }
+
+  .login-container {
+    width: 95%;
+    padding: 15px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .form-actions button {
+    width: 100%;
+  }
+}

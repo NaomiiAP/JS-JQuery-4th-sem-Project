@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hack the Terminal</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <!-- Login Screen -->
+    <div class="login-screen" id="login-screen">
+      <div class="login-container">
+        <div class="login-header">
+          <h1>SECURE SYSTEM</h1>
+          <p class="blink">ACCESS RESTRICTED</p>
+        </div>
+        <div class="login-form">
+          <div class="form-group">
+            <label for="username">USERNAME:</label>
+            <input type="text" id="login-username" placeholder="Enter username">
+          </div>
+          <div class="form-group">
+            <label for="password">PASSWORD:</label>
+            <input type="password" id="login-password" placeholder="Enter password">
+          </div>
+          <div class="form-actions">
+            <button id="login-button">LOGIN</button>
+            <button id="hack-button">HACK SYSTEM</button>
+          </div>
+          <div id="login-message"></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Terminal -->
+    <div class="terminal" style="display: none;">
+      <div class="terminal-header">
+        <div class="terminal-title">TERMINAL v1.0.3</div>
+        <div class="terminal-controls">
+          <span class="control minimize"></span>
+          <span class="control maximize"></span>
+          <span class="control close"></span>
+        </div>
+      </div>
+      <div class="terminal-content" id="terminal-content">
+        <div class="boot-sequence">
+          <p>SYSTEM BOOT SEQUENCE INITIATED...</p>
+          <p>LOADING KERNEL... <span class="success">OK</span></p>
+          <p>INITIALIZING NETWORK INTERFACES... <span class="success">OK</span></p>
+          <p>ESTABLISHING SECURE CONNECTION... <span class="success">OK</span></p>
+          <p>TERMINAL READY</p>
+          <p class="welcome-message">Welcome to HackOS v3.4.2</p>
+          <p>Type <span class="command">help</span> to see available commands.</p>
+        </div>
+      </div>
+      <div class="terminal-input-line">
+        <span class="prompt">hacker@terminal:~$</span>
+        <input type="text" id="terminal-input" autofocus spellcheck="false">
+        <span class="cursor" id="cursor"></span>
+      </div>
+    </div>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>
